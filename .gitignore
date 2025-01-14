@@ -1,0 +1,11 @@
+# IntelliJ
+.idea/
+
+# Node/NPM
+node_modules/
+dist/
+build_internal/
+
+.eslintcache
+
+lib/index.ts

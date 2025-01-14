@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "jsx": "react-jsx",
+      "skipLibCheck": true,
+      "module": "ES2022",
+      "target": "ES2022",
+      "lib": ["ESNext", "DOM", "DOM.Iterable"],
+      "allowJs": false,
+      "esModuleInterop": true,
+      "strict": true,
+      "noEmit": true,
+      "resolveJsonModule": true,
+      "moduleResolution": "bundler",
+      "forceConsistentCasingInFileNames": true,
+      "types": ["vite/client"],
+    },
+    "include": ["lib"],
+    "exclude": ["node_modules", "dist"]
+  }
