@@ -1,7 +1,7 @@
 import "@codingame/monaco-vscode-markdown-basics-default-extension"
 import "@codingame/monaco-vscode-markdown-language-features-default-extension"
-import textEditorWorker from "monaco-editor/esm/vs/editor/editor.worker.js?worker&inline";
-import textMateWorker from "@codingame/monaco-vscode-textmate-service-override/worker?worker&inline";
+import textEditorWorker from "monaco-editor/esm/vs/editor/editor.worker.js?worker";
+import textMateWorker from "@codingame/monaco-vscode-textmate-service-override/worker?worker";
 import { WrapperConfig } from "monaco-editor-wrapper";
 import { useWorkerFactory } from "monaco-editor-wrapper/workerFactory";
 import { LogLevel } from 'vscode/services';
@@ -15,7 +15,7 @@ export const createMonacoWrapperConfig = (
     logLevel: LogLevel.Debug,
     htmlContainer: document.getElementById("monaco-editor-root") as HTMLElement,
     vscodeApiConfig: {
-      enableExtHostWorker: true,
+      enableExtHostWorker: false,
       userConfiguration: {
         json: JSON.stringify({
           "workbench.colorTheme": "Default Light Modern",

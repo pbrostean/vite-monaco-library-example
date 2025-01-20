@@ -14,19 +14,8 @@
    pnpm run build
    ```
 
-3. Link the library:
+3. Run the project:
 
     ```sh
-    npm link
-    ```
-
-4. In another project, link the library:
-
-    ```sh
-    npm link @test/lib-ui
-    ```
-
-5. Import the library in a React project:
-    ```javascript
-    import { MonacoEditor } from "@test/lib-ui";
+    pnpm run dev
     ```
