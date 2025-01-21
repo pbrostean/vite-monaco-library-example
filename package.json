@@ -10,15 +10,14 @@
             "import": "./dist/index.js",
             "types": "./dist/index.d.ts",
             "require": "./dist/browser.js"
-        },
-        "./package.json": "./package.json"
+        }
     },
     "files": [
         "dist"
     ],
     "types": "./dist/index.d.ts",
     "scripts": {
-        "prebuild": "barrelsby --delete -d lib",
+        "prebuild": "barrelsby -c barrelsby.config.json",
         "build": "tsc && vite build",
         "build:dev": "tsc && vite build --watch --emptyOutDir=false",
         "dev": "vite"
@@ -26,6 +25,7 @@
     "devDependencies": {
         "@codingame/esbuild-import-meta-url-plugin": "^1.0.2",
         "@codingame/monaco-vscode-rollup-vsix-plugin": "~11.1.2",
+        "@rollup/plugin-replace": "^6.0.2",
         "@types/node": "~22.10.5",
         "@types/react": "~18.3.18",
         "@types/vscode": "~1.96.0",
@@ -33,7 +33,8 @@
         "barrelsby": "~2.8.1",
         "typescript": "~5.7.2",
         "vite": "~6.0.7",
-        "vite-plugin-dts": "~4.5.0"
+        "vite-plugin-dts": "~4.5.0",
+        "vite-plugin-static-copy": "^2.2.0"
     },
     "dependencies": {
         "@codingame/monaco-vscode-markdown-basics-default-extension": "~11.1.2",

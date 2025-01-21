@@ -3,18 +3,14 @@ import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import vsixPlugin from "@codingame/monaco-vscode-rollup-vsix-plugin";
 import importMetaUrlPlugin from "@codingame/esbuild-import-meta-url-plugin";
+import { viteStaticCopy } from "vite-plugin-static-copy";
+import replacePatternPlugin from "./plugins/replacePatternPlugin";
 import path from "path";
 
 export default defineConfig({
-    plugins: [
-        react(),
-        dts({
-            rollupTypes: true,
-        }),
-        vsixPlugin(),
-    ],
     base: "./",
     build: {
+        minify: "esbuild",
         lib: {
             entry: path.resolve(__dirname, "lib/index.ts"),
             name: "@test/lib-ui",
@@ -28,6 +24,7 @@ export default defineConfig({
         rollupOptions: {
             external: ["react", "react-dom"],
             output: {
+                inlineDynamicImports: true,
                 globals: {
                     react: "React",
                     "react-dom": "ReactDOM",
@@ -43,5 +40,31 @@ export default defineConfig({
     },
     worker: {
         format: "es",
+        rollupOptions: {
+            output: {
+                inlineDynamicImports: true,
+            },
+        },
     },
+    plugins: [
+        react(),
+        dts({
+            exclude: ["lib/components/**/*.ts"],
+            insertTypesEntry: true,
+        }),
+        vsixPlugin(),
+        viteStaticCopy({
+            targets: [
+                {
+                    src: "./static/webWorkerExtensionHostIframe.html",
+                    dest: "assets",
+                },
+            ],
+        }),
+        replacePatternPlugin(
+            "../dist/index.js",
+            /webWorkerExtensionHostIframe\.html"\s*:\s*\(\)\s*=>.*?\s*new\s*URL\s*\(([^)]*)\)/,
+            '"./assets/webWorkerExtensionHostIframe.html", import.meta.url'
+        ),
+    ],
 });

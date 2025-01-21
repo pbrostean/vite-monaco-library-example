@@ -15,7 +15,7 @@ export const createMonacoWrapperConfig = (
     logLevel: LogLevel.Debug,
     htmlContainer: document.getElementById("monaco-editor-root") as HTMLElement,
     vscodeApiConfig: {
-      enableExtHostWorker: false,
+      enableExtHostWorker: true,
       userConfiguration: {
         json: JSON.stringify({
           "workbench.colorTheme": "Default Light Modern",
