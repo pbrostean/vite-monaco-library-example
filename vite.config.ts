@@ -1,10 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
-import vsixPlugin from "@codingame/monaco-vscode-rollup-vsix-plugin";
-import importMetaUrlPlugin from "@codingame/esbuild-import-meta-url-plugin";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import replacePatternPlugin from "./plugins/replacePatternPlugin";
+import extHostIframeWorkaround from "./plugins/extHostIframeWorkaround";
 import path from "path";
 
 export default defineConfig({
@@ -24,7 +22,6 @@ export default defineConfig({
         rollupOptions: {
             external: ["react", "react-dom"],
             output: {
-                inlineDynamicImports: true,
                 globals: {
                     react: "React",
                     "react-dom": "ReactDOM",
@@ -32,19 +29,8 @@ export default defineConfig({
             },
         },
     },
-    optimizeDeps: {
-        esbuildOptions: {
-            plugins: [importMetaUrlPlugin],
-        },
-        include: ["vscode-textmate", "vscode-oniguruma"],
-    },
     worker: {
         format: "es",
-        rollupOptions: {
-            output: {
-                inlineDynamicImports: true,
-            },
-        },
     },
     plugins: [
         react(),
@@ -52,19 +38,14 @@ export default defineConfig({
             exclude: ["lib/components/**/*.ts"],
             insertTypesEntry: true,
         }),
-        vsixPlugin(),
+        extHostIframeWorkaround(),
         viteStaticCopy({
             targets: [
                 {
-                    src: "./static/webWorkerExtensionHostIframe.html",
+                    src: "node_modules/@codingame/monaco-vscode-extensions-service-override/assets/webWorkerExtensionHostIframe.html",
                     dest: "assets",
                 },
             ],
         }),
-        replacePatternPlugin(
-            "../dist/index.js",
-            /webWorkerExtensionHostIframe\.html"\s*:\s*\(\)\s*=>.*?\s*new\s*URL\s*\(([^)]*)\)/,
-            '"./assets/webWorkerExtensionHostIframe.html", import.meta.url'
-        ),
     ],
 });

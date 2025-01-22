@@ -23,14 +23,12 @@
         "dev": "vite"
     },
     "devDependencies": {
-        "@codingame/esbuild-import-meta-url-plugin": "^1.0.2",
-        "@codingame/monaco-vscode-rollup-vsix-plugin": "~11.1.2",
-        "@rollup/plugin-replace": "^6.0.2",
         "@types/node": "~22.10.5",
         "@types/react": "~18.3.18",
         "@types/vscode": "~1.96.0",
         "@vitejs/plugin-react": "~4.3.4",
         "barrelsby": "~2.8.1",
+        "magic-string": "^0.30.17",
         "typescript": "~5.7.2",
         "vite": "~6.0.7",
         "vite-plugin-dts": "~4.5.0",
